@@ -3,165 +3,101 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>SureBet Pro v2.0</title>
+<title>SureBet Pro v3.0</title>
 
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#16a34a">
 
-<style>
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:Arial,sans-serif;
-}
-
-body{
-background:#121212;
-color:#fff;
-padding:20px;
-}
-
-.container{
-max-width:450px;
-margin:auto;
-}
-
-h1{
-text-align:center;
-margin-bottom:20px;
-color:#16a34a;
-}
-
-.card{
-background:#1f1f1f;
-padding:20px;
-border-radius:15px;
-box-shadow:0 0 15px rgba(0,0,0,.4);
-}
-
-label{
-display:block;
-margin-top:15px;
-margin-bottom:5px;
-}
-
-input{
-width:100%;
-padding:12px;
-font-size:18px;
-border:none;
-border-radius:10px;
-background:#2a2a2a;
-color:white;
-}
-
-button{
-width:100%;
-padding:15px;
-margin-top:15px;
-font-size:18px;
-border:none;
-border-radius:12px;
-background:#16a34a;
-color:white;
-font-weight:bold;
-cursor:pointer;
-}
-
-button:hover{
-opacity:.9;
-}
-
-#resultado{
-margin-top:20px;
-padding:15px;
-border-radius:10px;
-font-size:18px;
-background:#222;
-}
-</style>
-
+<link rel="stylesheet" href="style.css">
 </head>
 
-<script>
-function calcular() {
-
-let monto = parseFloat(document.getElementById("monto").value);
-let local = parseFloat(document.getElementById("local").value);
-let empate = parseFloat(document.getElementById("empate").value);
-let visitante = parseFloat(document.getElementById("visitante").value);
-
-if(!monto || !local || !empate || !visitante){
-alert("Completa todos los campos");
-return;
-}
-
-let inv = (1/local)+(1/empate)+(1/visitante);
-
-let apuestaLocal = monto*((1/local)/inv);
-let apuestaEmpate = monto*((1/empate)/inv);
-let apuestaVisitante = monto*((1/visitante)/inv);
-
-let retorno = apuestaLocal*local;
-let ganancia = retorno-monto;
-
-let texto="";
-
-if(inv<1){
-texto+="<h2 style='color:#00ff66'>✅ HAY SUREBET</h2>";
-}else{
-texto+="<h2 style='color:red'>❌ NO HAY SUREBET</h2>";
-}
-
-texto+=`
-<b>Arbitraje:</b> ${(inv*100).toFixed(2)}%<br><br>
-
-<b>Local:</b> S/${apuestaLocal.toFixed(2)}<br>
-<b>Empate:</b> S/${apuestaEmpate.toFixed(2)}<br>
-<b>Visitante:</b> S/${apuestaVisitante.toFixed(2)}<br><br>
-
-<b>Retorno:</b> S/${retorno.toFixed(2)}<br>
-<b>Ganancia:</b> S/${ganancia.toFixed(2)}
-`;
-
-document.getElementById("resultado").innerHTML=texto;
-
-}
-
-if("serviceWorker" in navigator){
-navigator.serviceWorker.register("sw.js");
-}
-</script>
-
-</body>
-</html><body>
+<body>
 
 <div class="container">
 
-<h1>SureBet Pro</h1>
+    <div class="header">
+        <h1>🎯 SureBet Pro</h1>
+        <p>Calculadora Profesional de Surebets</p>
+    </div>
 
-<div class="card">
+    <div class="card">
 
-<label>Monto Total (S/)</label>
-<input id="monto" type="number">
+        <label>Monto Total (S/)</label>
+        <input type="number" id="monto" placeholder="100">
 
-<label>Cuota Local</label>
-<input id="local" type="number" step="0.01">
+        <h3>Mejores cuotas</h3>
 
-<label>Cuota Empate</label>
-<input id="empate" type="number" step="0.01">
+        <label>🏠 Local</label>
+        <input type="number" step="0.01" id="local">
 
-<label>Cuota Visitante</label>
-<input id="visitante" type="number" step="0.01">
+        <label>🤝 Empate</label>
+        <input type="number" step="0.01" id="empate">
 
-<button onclick="calcular()">
-Calcular SureBet
-</button>
+        <label>🚩 Visitante</label>
+        <input type="number" step="0.01" id="visitante">
 
-<div id="resultado"></div>
+        <div class="botones">
+
+            <button class="verde" onclick="calcularSurebet()">
+                Calcular
+            </button>
+
+            <button class="gris" onclick="limpiar()">
+                Limpiar
+            </button>
+
+            <button class="azul" onclick="copiarResultado()">
+                Copiar Resultado
+            </button>
+
+        </div>
+
+    </div>
+
+    <div class="resultado" id="resultado">
+
+        <h2>Esperando cálculo...</h2>
+
+    </div>
+
+    <div class="card">
+
+        <h2>Comparador de Casas</h2>
+
+        <table>
+
+            <thead>
+
+            <tr>
+                <th>Casa</th>
+                <th>Local</th>
+                <th>Empate</th>
+                <th>Visita</th>
+            </tr>
+
+            </thead>
+
+            <tbody id="tablaCasas">
+
+            </tbody>
+
+        </table>
+
+    </div>
 
 </div>
 
-</div>
+<script src="app.js"></script>
+
+<script>
+
+if ("serviceWorker" in navigator){
+
+navigator.serviceWorker.register("sw.js");
+
+}
+
+</script>
+
+</body>
+</html>
