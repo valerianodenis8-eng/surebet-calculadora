@@ -1,1 +1,116 @@
-<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>SureBet Pro</title><style>body{font-family:Arial;max-width:480px;margin:auto;padding:20px;background:#111;color:#fff}input,button{width:100%;padding:10px;margin:6px 0}</style></head><body><h2>SureBet Pro</h2><input id=l placeholder="Cuota Local" type=number><input id=e placeholder="Cuota Empate" type=number><input id=v placeholder="Cuota Visitante" type=number><input id=m placeholder="Monto" type=number><button onclick="c()">Calcular</button><div id=o></div><script>function c(){let A=+l.value,B=+e.value,C=+v.value,M=+m.value;if(!A||!B||!C||!M){o.innerHTML="Completa todos los campos";return;}let i=1/A+1/B+1/C,s1=M*((1/A)/i),s2=M*((1/B)/i),s3=M*((1/C)/i),co=Math.min(s1*A,s2*B,s3*C),g=co-M;o.innerHTML=(i<1?"✅ HAY SUREBET":"❌ NO HAY SUREBET")+"<br>Local: S/"+s1.toFixed(2)+"<br>Empate: S/"+s2.toFixed(2)+"<br>Visitante: S/"+s3.toFixed(2)+"<br>Ganancia: S/"+g.toFixed(2);}</script></body></html>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>SureBet Pro v2.0</title>
+
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#16a34a">
+
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
+}
+
+body{
+background:#121212;
+color:#fff;
+padding:20px;
+}
+
+.container{
+max-width:450px;
+margin:auto;
+}
+
+h1{
+text-align:center;
+margin-bottom:20px;
+color:#16a34a;
+}
+
+.card{
+background:#1f1f1f;
+padding:20px;
+border-radius:15px;
+box-shadow:0 0 15px rgba(0,0,0,.4);
+}
+
+label{
+display:block;
+margin-top:15px;
+margin-bottom:5px;
+}
+
+input{
+width:100%;
+padding:12px;
+font-size:18px;
+border:none;
+border-radius:10px;
+background:#2a2a2a;
+color:white;
+}
+
+button{
+width:100%;
+padding:15px;
+margin-top:15px;
+font-size:18px;
+border:none;
+border-radius:12px;
+background:#16a34a;
+color:white;
+font-weight:bold;
+cursor:pointer;
+}
+
+button:hover{
+opacity:.9;
+}
+
+#resultado{
+margin-top:20px;
+padding:15px;
+border-radius:10px;
+font-size:18px;
+background:#222;
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>SureBet Pro</h1>
+
+<div class="card">
+
+<label>Monto Total (S/)</label>
+<input id="monto" type="number">
+
+<label>Cuota Local</label>
+<input id="local" type="number" step="0.01">
+
+<label>Cuota Empate</label>
+<input id="empate" type="number" step="0.01">
+
+<label>Cuota Visitante</label>
+<input id="visitante" type="number" step="0.01">
+
+<button onclick="calcular()">
+Calcular SureBet
+</button>
+
+<div id="resultado"></div>
+
+</div>
+
+</div>
