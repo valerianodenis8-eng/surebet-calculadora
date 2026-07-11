@@ -85,7 +85,58 @@ background:#222;
 
 </head>
 
-<body>
+<script>
+function calcular() {
+
+let monto = parseFloat(document.getElementById("monto").value);
+let local = parseFloat(document.getElementById("local").value);
+let empate = parseFloat(document.getElementById("empate").value);
+let visitante = parseFloat(document.getElementById("visitante").value);
+
+if(!monto || !local || !empate || !visitante){
+alert("Completa todos los campos");
+return;
+}
+
+let inv = (1/local)+(1/empate)+(1/visitante);
+
+let apuestaLocal = monto*((1/local)/inv);
+let apuestaEmpate = monto*((1/empate)/inv);
+let apuestaVisitante = monto*((1/visitante)/inv);
+
+let retorno = apuestaLocal*local;
+let ganancia = retorno-monto;
+
+let texto="";
+
+if(inv<1){
+texto+="<h2 style='color:#00ff66'>✅ HAY SUREBET</h2>";
+}else{
+texto+="<h2 style='color:red'>❌ NO HAY SUREBET</h2>";
+}
+
+texto+=`
+<b>Arbitraje:</b> ${(inv*100).toFixed(2)}%<br><br>
+
+<b>Local:</b> S/${apuestaLocal.toFixed(2)}<br>
+<b>Empate:</b> S/${apuestaEmpate.toFixed(2)}<br>
+<b>Visitante:</b> S/${apuestaVisitante.toFixed(2)}<br><br>
+
+<b>Retorno:</b> S/${retorno.toFixed(2)}<br>
+<b>Ganancia:</b> S/${ganancia.toFixed(2)}
+`;
+
+document.getElementById("resultado").innerHTML=texto;
+
+}
+
+if("serviceWorker" in navigator){
+navigator.serviceWorker.register("sw.js");
+}
+</script>
+
+</body>
+</html><body>
 
 <div class="container">
 
