@@ -146,3 +146,71 @@ navigator.clipboard.writeText(texto);
 alert("Resultado copiado");
 
 }
+function buscarMejoresCuotas(){
+
+const locales=document.querySelectorAll(".l");
+const empates=document.querySelectorAll(".e");
+const visitantes=document.querySelectorAll(".v");
+
+let mejorLocal=0;
+let mejorEmpate=0;
+let mejorVisitante=0;
+
+let casaLocal="";
+let casaEmpate="";
+let casaVisitante="";
+
+locales.forEach((item,index)=>{
+
+const valor=parseFloat(item.value);
+
+if(!isNaN(valor) && valor>mejorLocal){
+
+mejorLocal=valor;
+casaLocal=casas[index];
+
+}
+
+});
+
+empates.forEach((item,index)=>{
+
+const valor=parseFloat(item.value);
+
+if(!isNaN(valor) && valor>mejorEmpate){
+
+mejorEmpate=valor;
+casaEmpate=casas[index];
+
+}
+
+});
+
+visitantes.forEach((item,index)=>{
+
+const valor=parseFloat(item.value);
+
+if(!isNaN(valor) && valor>mejorVisitante){
+
+mejorVisitante=valor;
+casaVisitante=casas[index];
+
+}
+
+});
+
+document.getElementById("local").value=mejorLocal;
+document.getElementById("empate").value=mejorEmpate;
+document.getElementById("visitante").value=mejorVisitante;
+
+alert(
+`Mejores cuotas encontradas
+
+🏠 Local: ${mejorLocal} (${casaLocal})
+
+🤝 Empate: ${mejorEmpate} (${casaEmpate})
+
+🚩 Visitante: ${mejorVisitante} (${casaVisitante})`
+);
+
+}
